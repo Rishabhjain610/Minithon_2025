@@ -50,17 +50,30 @@ const Signup = () => {
   };
 
   // Google Sign-in logic (UI only as requested)
-  const handleGoogleSignIn = async() => {
+  const handleGoogleSignIn = async () => {
     try {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
-      const name=user.displayName;
-      const email=user.email;
+      const name = user.displayName;
+      const email = user.email;
+
+      // API call to your backend for Google Auth
+      const response = await axios.post(`${serverUrl}/api/auth/google-signin`, {
+        name,
+        email,
+      });
+
+      if (response.data.success) {
+        toast.success(response.data.message || "Google signup successful!");
+        navigate("/");
+      } else {
+        toast.error(response.data.message || "Google signup failed!");
+      }
     } catch (error) {
-      
+      toast.error("Google signup failed!");
+      console.error("Google signup error:", error);
     }
     // signInWithPopup(auth, provider)...
-    
   };
 
   return (

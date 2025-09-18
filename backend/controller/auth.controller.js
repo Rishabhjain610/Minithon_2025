@@ -28,20 +28,18 @@ const SignUp = async (req, res) => {
       maxAge: 3 * 24 * 60 * 60 * 1000, // 3 days
     });
 
-    res
-      .status(201)
-      .json({
-        message: "User created successfully",
-        user: newUser,
-        success: true,
-      });
+    res.status(201).json({
+      message: "User created successfully",
+      user: newUser,
+      success: true,
+    });
   } catch (error) {
     console.log(error.message);
     res.status(500).send("Error in SignUp");
   }
 };
 
-const Login = async (req, res) =>{
+const Login = async (req, res) => {
   try {
     const { email, password } = req.body;
     if (!email || !password) {
@@ -85,17 +83,15 @@ const Logout = (req, res) => {
   });
 };
 
-
-
 const googleSignIn = async (req, res) => {
   try {
     const { name, email } = req.body;
     if (!name || !email) {
       return res.status(400).json({ message: "All fields are required" });
     }
-    const existingUser = await User.findOne({ email });
+    const existingUser = await Auth.findOne({ email });
     if (existingUser) {
-      const token = await createToken(existingUser);
+      const token = generateToken(existingUser);
       res.cookie("token", token, {
         httpOnly: true,
         secure: false,
@@ -108,14 +104,13 @@ const googleSignIn = async (req, res) => {
         success: true,
       });
     } else {
-      const newUser = await User.create({
+      const newUser = await Auth.create({
         name,
         email,
-        password: "",
         
         isGoogleUser: true,
       });
-      const token = await createToken(newUser);
+      const token = generateToken(newUser);
       res.cookie("token", token, {
         httpOnly: true,
         secure: false,
@@ -131,10 +126,6 @@ const googleSignIn = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: "Google Login Server Error" });
   }
-}
-
-
-
-
+};
 
 module.exports = { SignUp, Login, Logout, googleSignIn };

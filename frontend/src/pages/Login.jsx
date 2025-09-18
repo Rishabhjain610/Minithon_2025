@@ -5,9 +5,9 @@ import { AuthDataContext } from '../context/AuthContext';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { FcGoogle } from 'react-icons/fc';
-// Assuming firebase is set up, but keeping logic minimal as requested
-// import { signInWithPopup } from "firebase/auth";
-// import { auth, provider } from "../../utils/firebase.js";
+
+import { signInWithPopup } from "firebase/auth";
+import { auth, provider } from "../../utils/firebase.js";
 
 const Login = () => {
   const { serverUrl } = useContext(AuthDataContext);
@@ -32,8 +32,8 @@ const Login = () => {
       const response = await axios.post(`${serverUrl}/api/auth/login`, formData);
       if (response.data.success) {
         toast.success('Login successful!');
-        // You might want to update your auth context here with user data
-        navigate('/'); // Navigate to home page on successful login
+       
+        navigate('/'); 
       }
     } catch (err) {
       const errorMessage = err.response?.data?.message || err.response?.data || 'Login failed. Please check your credentials.';
@@ -42,10 +42,32 @@ const Login = () => {
     }
   };
 
-  const handleGoogleSignIn = () => {
-    // UI only, no logic
-    alert('Google sign-in button clicked.');
-  };
+  const handleGoogleSignIn = async () => {
+      try {
+        const result = await signInWithPopup(auth, provider);
+        const user = result.user;
+        const name = user.displayName;
+        const email = user.email;
+  
+       
+        const response = await axios.post(`${serverUrl}/api/auth/google-signin`, {
+          name,
+          email,
+        });
+  
+        if (response.data.success) {
+          toast.success(response.data.message || "Google Login successful!");
+          navigate("/");
+        } else {
+          toast.error(response.data.message || "Google Login failed!");
+        }
+      } catch (error) {
+        toast.error("Google Login failed!");
+        console.error("Google Login error:", error);
+      }
+      
+    };
+  
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-50">
