@@ -6,9 +6,10 @@ import { auth, provider } from "../../utils/firebase.js";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { FcGoogle } from "react-icons/fc";
-
+import { UserDataContext } from '../context/UserContext.jsx';
 const Signup = () => {
   const { serverUrl } = useContext(AuthDataContext);
+  const { setUser } = useContext(UserDataContext);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
@@ -37,7 +38,7 @@ const Signup = () => {
       if (response.data.success) {
         console.log("Signup successful:", response.data);
         toast.success("Signup successful");
-
+        setUser(response.data.user);
         navigate("/");
       }
     } catch (err) {
@@ -65,6 +66,7 @@ const Signup = () => {
 
       if (response.data.success) {
         toast.success(response.data.message || "Google signup successful!");
+        setUser(response.data.user);
         navigate("/");
       } else {
         toast.error(response.data.message || "Google signup failed!");

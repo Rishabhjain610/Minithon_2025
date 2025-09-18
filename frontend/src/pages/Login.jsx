@@ -8,9 +8,10 @@ import { FcGoogle } from 'react-icons/fc';
 
 import { signInWithPopup } from "firebase/auth";
 import { auth, provider } from "../../utils/firebase.js";
-
+import { UserDataContext } from '../context/UserContext.jsx';
 const Login = () => {
   const { serverUrl } = useContext(AuthDataContext);
+  const { setUser } = useContext(UserDataContext);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: '',
@@ -29,10 +30,12 @@ const Login = () => {
       return;
     }
     try {
-      const response = await axios.post(`${serverUrl}/api/auth/login`, formData);
+      const response = await axios.post(`${serverUrl}/api/auth/login`, formData,{
+        withCredentials: true, // To send httpOnly cookie
+      });
       if (response.data.success) {
         toast.success('Login successful!');
-       
+        setUser(response.data.user);
         navigate('/'); 
       }
     } catch (err) {
@@ -53,10 +56,13 @@ const Login = () => {
         const response = await axios.post(`${serverUrl}/api/auth/google-signin`, {
           name,
           email,
+        },{
+          withCredentials: true, // To send httpOnly cookie
         });
   
         if (response.data.success) {
           toast.success(response.data.message || "Google Login successful!");
+          setUser(response.data.user);
           navigate("/");
         } else {
           toast.error(response.data.message || "Google Login failed!");

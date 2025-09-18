@@ -1,9 +1,13 @@
-import React from 'react'
+import React from "react";
+import Chatbot from "../components/Chatbot";
 
 const LandingPage = () => {
   return (
-    <div>LandingPage</div>
-  )
-}
+    <div>
+      LandingPage
+      <Chatbot />
+    </div>
+  );
+};
 
-export default LandingPage
+export default LandingPage;
