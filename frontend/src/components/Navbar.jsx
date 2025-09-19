@@ -10,7 +10,7 @@ export default function Navbar() {
         </div>
 
         <nav className="hidden md:flex items-center space-x-8">
-          <a href="#" className="text-gray-700 hover:text-black">
+          <a href="/" className="text-gray-700 hover:text-black">
             Home
           </a>
           <a href="#" className="text-gray-700 hover:text-black">

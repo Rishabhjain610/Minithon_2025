@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
@@ -14,14 +15,22 @@ const video = "https://res.cloudinary.com/dkpgnq7ym/video/upload/v1758253860/Her
 export default function LandingPage() {
     const [currentTestimonial, setCurrentTestimonial] = useState(0)
     const [location, setLocation] = useState("mumbai")
-    const [priceRange, setPriceRange] = useState(1000000)
+    const [priceRange, setPriceRange] = useState(10000)
+
+    const navigate = useNavigate();
+
+    const cityCoordinates = {
+        mumbai: { lat: 19.076, lng: 72.8777 },
+        pune: { lat: 18.5204, lng: 73.8567 },
+        delhi: { lat: 28.7041, lng: 77.1025 },
+    };
 
     const properties = [
         {
             id: 1,
             image: "/img1.jpeg",
-            price: "₹76,500",
-            priceNumber: 76500,
+            price: "₹15,000",
+            priceNumber: 15000,
             title: "Cozy spacious and adorable apartment in city centre",
             beds: 2,
             baths: 1,
@@ -32,8 +41,8 @@ export default function LandingPage() {
         {
             id: 2,
             image: "/img2.jpeg",
-            price: "₹31,50,000",
-            priceNumber: 3150000,
+            price: "₹25,000",
+            priceNumber: 250000,
             title: "Renovated luxury villa Anna with a pool",
             beds: 4,
             baths: 3,
@@ -44,8 +53,8 @@ export default function LandingPage() {
         {
             id: 2,
             image: "/img3.jpeg",
-            price: "₹31,50,000",
-            priceNumber: 3190000,
+            price: "₹30,000",
+            priceNumber: 30000,
             title: "Renovated villa Anna with a pool",
             beds: 5,
             baths: 2,
@@ -56,8 +65,8 @@ export default function LandingPage() {
         {
             id: 3,
             image: "/img4.jpg",
-            price: "₹85,500",
-            priceNumber: 85500,
+            price: "₹10,500",
+            priceNumber: 10500,
             title: "Luxury apartment with two bedrooms",
             beds: 2,
             baths: 2,
@@ -68,8 +77,8 @@ export default function LandingPage() {
         {
             id: 4,
             image: "/img5.jpg",
-            price: "₹13,05,000",
-            priceNumber: 1305000,
+            price: "₹19,000",
+            priceNumber: 19000,
             title: "New apartment suitable for a young family",
             beds: 3,
             baths: 2,
@@ -80,8 +89,8 @@ export default function LandingPage() {
         {
             id: 5,
             image: "/img6.jpeg",
-            price: "₹63,000",
-            priceNumber: 63000,
+            price: "₹43,000",
+            priceNumber: 43000,
             title: "Modern house in peaceful neighborhood",
             beds: 3,
             baths: 2,
@@ -92,8 +101,8 @@ export default function LandingPage() {
         {
             id: 6,
             image: "/img7.jpeg",
-            price: "₹6,75,00,000",
-            priceNumber: 67500000,
+            price: "₹50,000",
+            priceNumber: 500000,
             title: "Spacious office with 12 separated rooms",
             beds: 12,
             baths: 8,
@@ -172,6 +181,16 @@ export default function LandingPage() {
         setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length)
     }
 
+    const handleCardClick = (property) => {
+        // Add the city coordinates data to the property
+        const extendedProperty = {
+            ...property,
+            cityCoordinates,
+        };
+        // Navigate to Room.jsx page and pass the property data via location state
+        navigate("/room", { state: { property: extendedProperty } });
+    };
+
     return (
         <div className="min-h-screen bg-white">
             {/* Hero Section - Responsive Heights */}
@@ -248,9 +267,9 @@ export default function LandingPage() {
                         <div className="flex items-center space-x-4">
                             <input
                                 type="range"
-                                min="1000"
-                                max="70000000"
-                                step="10000"
+                                min="15000"
+                                max="70000"
+                                step="1000"
                                 value={priceRange}
                                 onChange={(e) => setPriceRange(Number(e.target.value))}
                                 className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
@@ -276,7 +295,7 @@ export default function LandingPage() {
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
                         {filteredProperties.length > 0 ? filteredProperties.map((property) => (
-                            <Card key={property.id} className="overflow-hidden py-0 hover:shadow-lg transition-shadow">
+                            <Card key={property.id} onClick={() => handleCardClick(property)} className="overflow-hidden py-0 hover:shadow-lg transition-shadow">
                                 <div className="relative">
                                     <img
                                         src={property.image || "/placeholder.svg"}
@@ -426,72 +445,73 @@ export default function LandingPage() {
             {/* FAQ - Responsive */}
             <section className="py-8 sm:py-12 md:py-16 bg-gray-50">
                 <div className="max-w-4xl mx-auto px-4 sm:px-6">
-                    <h2 className="text-2xl sm:text-3xl font-bold text-center text-gray-900 mb-4">FAQ</h2>
-                    <p className="text-center text-gray-600 mb-8 sm:mb-12 text-sm sm:text-base">Navigating Real Estate: Your Questions, Our Answers</p>
+                    <h2 className="text-2xl sm:text-3xl font-bold text-center text-gray-900 mb-4">
+                        FAQ
+                    </h2>
+                    <p className="text-center text-gray-600 mb-8 sm:mb-12 text-sm sm:text-base">
+                        Navigating Dormitory Booking: Your Questions, Our Answers
+                    </p>
 
                     <Accordion type="single" collapsible className="space-y-4">
                         <AccordionItem value="item-1" className="bg-white rounded-lg px-4 sm:px-6">
                             <AccordionTrigger className="text-left font-semibold text-sm sm:text-base">
-                                How do I start the process of buying a property?
+                                How do I book a room in the dormitory?
                             </AccordionTrigger>
                             <AccordionContent className="text-gray-600 text-sm sm:text-base">
-                                The first step is to get pre-approved for a mortgage to understand your budget. Then, work with our
-                                experienced agents to identify your needs and preferences, and we'll help you find properties that match
-                                your criteria.
+                                You can browse available rooms, check amenities and pricing, and book your preferred room directly through our online platform using the 'Book Now' option.
                             </AccordionContent>
                         </AccordionItem>
 
                         <AccordionItem value="item-2" className="bg-white rounded-lg px-4 sm:px-6">
                             <AccordionTrigger className="text-left font-semibold text-sm sm:text-base">
-                                What documents do I need when applying for a mortgage?
+                                What documents are required for booking?
                             </AccordionTrigger>
                             <AccordionContent className="text-gray-600 text-sm sm:text-base">
-                                You'll typically need proof of income, bank statements, tax returns, employment verification, and
-                                information about your debts and assets. Our team can provide you with a complete checklist.
+                                Typically, you’ll need valid ID proof (like Aadhaar or college ID) and, if required, a proof of admission or employment. Check our booking page for specific requirements.
                             </AccordionContent>
                         </AccordionItem>
 
                         <AccordionItem value="item-3" className="bg-white rounded-lg px-4 sm:px-6">
                             <AccordionTrigger className="text-left font-semibold text-sm sm:text-base">
-                                How long does the home-buying process typically take?
+                                Can I see photos and details of rooms before booking?
                             </AccordionTrigger>
                             <AccordionContent className="text-gray-600 text-sm sm:text-base">
-                                The process typically takes 30-45 days from the time your offer is accepted, though this can vary based
-                                on financing, inspections, and other factors. We'll keep you informed every step of the way.
+                                Yes! Our gallery features high-quality images and detailed descriptions of each room and common area, so you can make an informed choice.
                             </AccordionContent>
                         </AccordionItem>
 
                         <AccordionItem value="item-4" className="bg-white rounded-lg px-4 sm:px-6">
                             <AccordionTrigger className="text-left font-semibold text-sm sm:text-base">
-                                How can I prepare my home for sale?
+                                Is there a contact point for questions or assistance?
                             </AccordionTrigger>
                             <AccordionContent className="text-gray-600 text-sm sm:text-base">
-                                Start with decluttering and deep cleaning, make necessary repairs, consider staging, and work with our
-                                team to price your home competitively. We'll provide a detailed preparation checklist.
+                                Absolutely. Use our inquiry form or the support contact provided on the site—we’re here to help you with bookings, payments, or other issues.
                             </AccordionContent>
                         </AccordionItem>
 
                         <AccordionItem value="item-5" className="bg-white rounded-lg px-4 sm:px-6">
                             <AccordionTrigger className="text-left font-semibold text-sm sm:text-base">
-                                What should I do if I'm interested in a property based on your website?
+                                What amenities and facilities are included?
                             </AccordionTrigger>
                             <AccordionContent className="text-gray-600 text-sm sm:text-base">
-                                Contact us immediately to schedule a viewing. Popular properties move quickly, so don't hesitate to
-                                reach out. We can arrange a showing at your convenience and answer any questions you have.
+                                Facilities such as WiFi, laundry, mess, common lounges, security services, and cleaning are included as per each dormitory’s offering. Check the room details or amenities list for information.
                             </AccordionContent>
                         </AccordionItem>
 
                         <AccordionItem value="item-6" className="bg-white rounded-lg px-4 sm:px-6">
-                            <AccordionTrigger className="text-left font-semibold text-sm sm:text-base">Still have a question?</AccordionTrigger>
+                            <AccordionTrigger className="text-left font-semibold text-sm sm:text-base">
+                                Still have a question?
+                            </AccordionTrigger>
                             <AccordionContent className="text-gray-600 text-sm sm:text-base">
-                                If you have any other questions not covered here, please don't hesitate to contact our team. We're here
-                                to help and provide personalized assistance for your real estate needs.
+                                If your question isn’t listed here, feel free to contact our team with your specific query. We’re committed to smooth, transparent, and supportive dormitory experiences.
                             </AccordionContent>
                         </AccordionItem>
                     </Accordion>
 
                     <div className="text-center mt-6 sm:mt-8">
-                        <Button className="bg-black text-white hover:bg-gray-800 px-6 py-2 sm:px-8 sm:py-3">Contact us</Button>
+                        <Button className="bg-black text-white hover:bg-gray-800 px-6 py-2 sm:px-8 sm:py-3">
+                            Contact us
+                        </Button>
                     </div>
                 </div>
             </section>

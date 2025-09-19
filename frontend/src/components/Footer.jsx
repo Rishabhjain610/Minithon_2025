@@ -10,16 +10,15 @@ export default function Footer() {
           {/* Company Info */}
           <div>
             <div className="flex items-center space-x-2 mb-6">
-              <div className="w-8 h-8 bg-white rounded flex items-center justify-center">
-                <div className="w-4 h-4 bg-black rounded-sm"></div>
+              <div className="flex items-center space-x-2">
+                <img src="/Roomy.png" className="h-16 w-30" alt="" />
               </div>
-              <span className="text-xl font-bold">REALTY</span>
             </div>
             <div className="space-y-2 text-gray-400">
-              <p>Realty Ltd.</p>
+              <p>Roomy Ltd.</p>
               <p>123 Main Street</p>
-              <p>London, UK SW1A 1AA</p>
-              <p>United Kingdom</p>
+              <p>Mumbai, Maharashtra</p>
+              <p>India</p>
             </div>
           </div>
 
