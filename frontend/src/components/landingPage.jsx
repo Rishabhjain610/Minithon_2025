@@ -10,6 +10,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Star, Bed, Bath, Square, Heart, Home, Key, TrendingUp, ChevronLeft, ChevronRight } from "lucide-react"
 import { useState } from "react"
+import Chatbot from "./Chatbot"
 
 const video = "https://res.cloudinary.com/dkpgnq7ym/video/upload/v1758253860/HeroSectionVideo_gfz0dw.mp4";
 
@@ -145,14 +146,14 @@ export default function LandingPage() {
         <div className="min-h-screen bg-white">
             {/* Hero Section */}
             <section className="relative h-[600px] overflow-hidden">
-                <video
+                {/* <video
                     key={currentVideo}
                     src={video}
                     autoPlay
                     muted
                     playsInline
                     className="absolute inset-0 w-full h-full object-cover opacity-50"
-                ></video>
+                ></video> */}
                 <div className="absolute inset-0 bg-black bg-opacity-30"></div>
                 <div className="relative z-10 max-w-7xl mx-auto px-6 h-full flex items-center">
                     <div className="text-white max-w-2xl">
@@ -385,7 +386,7 @@ export default function LandingPage() {
                     </div>
                 </div>
             </section>
-
+            <Chatbot />
             {/* Latest Blog */}
             <section className="py-16 bg-gray-50">
                 <div className="max-w-7xl mx-auto px-6">
