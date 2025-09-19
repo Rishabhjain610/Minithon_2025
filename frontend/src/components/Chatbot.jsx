@@ -6,7 +6,7 @@ import { AuthDataContext } from "../context/AuthContext";
 const Chatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
-    { from: "bot", text: "👋 Hi! I'm Simon. How can I help you today?" },
+    { from: "bot", text: "👋 Hi! I'm Roomy, your Dormitory Booking Assistant. How can I help you today?" },
   ]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -63,7 +63,7 @@ const Chatbot = () => {
             <div className="flex items-center gap-3">
               <img src={VoiceBot} className="h-8 w-8" alt="Chatbot Icon" />
               <span className="font-semibold text-lg text-gray-800">
-                Simon Assistant
+                Roomy Assistant
               </span>
             </div>
             <button
