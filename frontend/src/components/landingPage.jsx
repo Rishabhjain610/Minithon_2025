@@ -7,6 +7,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Star, Bed, Bath, Square, Heart, Home, Key, TrendingUp, ChevronLeft, ChevronRight } from "lucide-react"
 import { useState } from "react"
+import Chatbot from "./Chatbot"
 
 const video = "https://res.cloudinary.com/dkpgnq7ym/video/upload/v1758253860/HeroSectionVideo_gfz0dw.mp4";
 

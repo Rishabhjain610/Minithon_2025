@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button"
+import Language from "./Language"
 
 export default function Navbar() {
   return (
@@ -33,6 +34,7 @@ export default function Navbar() {
           <a href="#" className="text-gray-700 hover:text-black">
             Blog
           </a>
+          <Language />
         </nav>
 
         <Button variant="outline" className="border-gray-300 bg-transparent">
