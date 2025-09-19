@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button"
 import Language from "./Language"
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 export default function Navbar() {
   return (
@@ -14,10 +14,10 @@ export default function Navbar() {
           <a href="/" className="text-gray-700 hover:text-black">
             Home
           </a>
-          <a href="#" className="text-gray-700 hover:text-black">
-            About us
+          <a href="/contact" className="text-gray-700 hover:text-black">
+            Contact us
           </a>
-          <a href="#" className="text-gray-700 hover:text-black">
+          <a href="/services" className="text-gray-700 hover:text-black">
             Services
           </a>
           <a href="#" className="text-gray-700 hover:text-black">
@@ -30,7 +30,7 @@ export default function Navbar() {
           <Button variant="outline" className="border-gray-300 bg-transparent">
             Register/Login
           </Button>
-        </Link>       
+        </Link>
       </div>
     </header>
   )

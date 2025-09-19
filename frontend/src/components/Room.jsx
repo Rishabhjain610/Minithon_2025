@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Room = ({
     name,
@@ -8,9 +9,9 @@ const Room = ({
     reviewsCount,
     price,
     description,
-    available = true,
     onBookNow,
-    coordinates = [-6.9175, 107.6191],
+    available = true,
+    coordinates = [19.0760, 72.8777],
     amenities = ["Free WiFi", "Air Conditioning", "Kitchen", "Parking", "Swimming Pool"],
     photos = [
         "https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
@@ -760,17 +761,26 @@ const Room = ({
                                 {available ? 'Available' : 'Not Available'}
                             </p>
                         </div>
-
-                        <button
+                        <Link to="/form">                        <button
                             onClick={onBookNow}
                             disabled={!available}
                             className={`px-6 py-3 rounded-lg font-medium transition-colors duration-300 ${available
-                                ? 'bg-amber-500 hover:bg-amber-600 text-white shadow-md'
-                                : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                                ? 'bg-[#FDC800] hover:bg-amber-600 text-white shadow-md'
+                                : 'bg-[#FDC800] text-white cursor-not-allowed'
                                 }`}
                         >
                             BOOK NOW
-                        </button>
+                        </button></Link>
+                        <Link to="/dom-comparison">                        <button
+                            onClick={onBookNow}
+                            disabled={!available}
+                            className={`px-6 py-3 rounded-lg font-medium transition-colors duration-300 ${available
+                                ? 'bg-[#FDC800] hover:bg-amber-600 text-white shadow-md'
+                                : 'bg-[#FDC800] text-white cursor-not-allowed'
+                                }`}
+                        >
+                            View comparison
+                        </button></Link>
                     </div>
                 </div>
             </div>

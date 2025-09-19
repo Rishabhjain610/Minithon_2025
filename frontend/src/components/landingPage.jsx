@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
@@ -29,9 +29,9 @@ export default function LandingPage() {
         {
             id: 1,
             image: "/img1.jpeg",
-            price: "₹15,000",
-            priceNumber: 15000,
-            title: "Cozy spacious and adorable apartment in city centre",
+            price: "₹6,000",
+            priceNumber: 6000,
+            title: "Shiv Sagar Dormitory",
             beds: 2,
             baths: 1,
             area: "1 bedroom",
@@ -342,7 +342,7 @@ export default function LandingPage() {
             </section>
 
             {/* Our Services - Responsive Grid */}
-            <section className="py-8 sm:py-12 md:py-16 bg-white">
+            <section id="services" className="py-8 sm:py-12 md:py-16 bg-white">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <h2 className="text-2xl sm:text-3xl font-bold text-center text-gray-900 mb-8 sm:mb-12 md:mb-16">
                         Our Services
@@ -509,9 +509,11 @@ export default function LandingPage() {
                     </Accordion>
 
                     <div className="text-center mt-6 sm:mt-8">
-                        <Button className="bg-black text-white hover:bg-gray-800 px-6 py-2 sm:px-8 sm:py-3">
-                            Contact us
-                        </Button>
+                        <Link to="/contact">
+                            <Button className="bg-black text-white hover:bg-gray-800 px-6 py-2 sm:px-8 sm:py-3">
+                                Contact us
+                            </Button>
+                        </Link>
                     </div>
                 </div>
             </section>

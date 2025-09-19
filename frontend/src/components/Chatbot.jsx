@@ -80,16 +80,14 @@ const Chatbot = () => {
             {messages.map((msg, idx) => (
               <div
                 key={idx}
-                className={`flex ${
-                  msg.from === "user" ? "justify-end" : "justify-start"
-                }`}
+                className={`flex ${msg.from === "user" ? "justify-end" : "justify-start"
+                  }`}
               >
                 <div
-                  className={`px-4 py-2 rounded-2xl max-w-[80%] break-words ${
-                    msg.from === "user"
-                      ? "bg-blue-600 text-white"
-                      : "bg-gray-100 text-gray-800"
-                  }`}
+                  className={`px-4 py-2 rounded-2xl max-w-[80%] break-words ${msg.from === "user"
+                    ? "bg-blue-600 text-white"
+                    : "bg-gray-100 text-gray-800"
+                    }`}
                 >
                   {msg.text}
                 </div>
