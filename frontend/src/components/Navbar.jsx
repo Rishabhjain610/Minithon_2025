@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 export default function Navbar() {
   return (
-    <header className="bg-white border-b border-gray-100 px-6 py-2">
+    <header className="bg-white top-0 z-50 sticky border-b border-gray-100 px-6 py-1 shadow-xl rounded-b-2xl">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <div className="flex items-center space-x-2">
           <img src="/Roomy.png" className="h-16 w-30" alt="" />

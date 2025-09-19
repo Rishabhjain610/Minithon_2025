@@ -403,7 +403,7 @@ export default function LandingPage() {
                             </Button>
 
                             <div className="flex-1 mx-4 sm:mx-8">
-                                <Card className="p-4 sm:p-6 md:p-8">
+                                <Card className="p-4 sm:p-6 md:p-8 drop-shadow-lg hover:drop-shadow-3xl">
                                     <div className="flex flex-col sm:flex-row items-start sm:items-center mb-4 sm:mb-6 gap-4">
                                         <Avatar className="h-12 w-12 sm:h-16 sm:w-16">
                                             <AvatarImage src={testimonials[currentTestimonial].avatar || "/placeholder.svg"} />
