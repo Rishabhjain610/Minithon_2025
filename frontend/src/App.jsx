@@ -6,10 +6,13 @@ import Signup from './pages/Signup';
 import Login from './pages/Login';
 import LandingPage from './pages/LandingPage';
 import { UserDataContext } from './context/UserContext';
-
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
+import { useNavigate,Navigate } from 'react-router-dom';
+import { motion } from "motion/react"
 const App = () => {
   const { user, loading } = useContext(UserDataContext);
-
+  
   // Optional: Show a loading spinner while fetching user data
   if (loading) {
     return <div className="flex items-center justify-center h-screen">Loading...</div>;
@@ -32,14 +35,16 @@ const App = () => {
       />
       
       {/* Example of using user data */}
-      
 
+      {user && <Navbar />}
       <Routes>
-        <Route path="/" element={user ? <LandingPage /> : <Login />} />
+        <Route path="/" element={user ? <LandingPage /> : <Navigate to="/login" />} />
         <Route path="/about" element={<div className='text-xl text-red-600'>About</div>} />
         <Route path="/register" element={<Signup />} />
         <Route path="/login" element={<Login />} />
       </Routes>
+      {user && <Footer />}
+        
     </>
   );
 };
