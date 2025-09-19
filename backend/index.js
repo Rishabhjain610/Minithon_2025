@@ -6,6 +6,7 @@ const cookieParser = require("cookie-parser");
 const AuthRouter = require("./routes/auth.routes");
 const UserRouter = require("./routes/user.routes");
 const ChatRouter = require("./routes/chatbot.routes");
+const TwilioRouter=require("./routes/twilio.routes");
 ConnectDB();
 const app = express();
 const port = process.env.PORT || 3000;
@@ -20,9 +21,14 @@ app.use(
 app.use(express.json());
 app.use(cookieParser());
 
+
+
 app.use("/api/auth", AuthRouter);
 app.use("/api/user", UserRouter);
 app.use("/api/chatbot", ChatRouter);
+app.use("/api/twilio", TwilioRouter);
+
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
