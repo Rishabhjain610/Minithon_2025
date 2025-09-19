@@ -372,35 +372,6 @@ export default function LandingPage() {
                 </div>
             </section>
 
-
-            {/* Latest Blog - Responsive Grid */}
-            <section className="py-8 sm:py-12 md:py-16 bg-gray-50">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 sm:mb-12 gap-4">
-                        <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">Latest Blog</h2>
-                        <Button variant="link" className="text-gray-600 hover:text-gray-900 p-0">
-                            Read all →
-                        </Button>
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
-                        {blogPosts.map((post) => (
-                            <Card key={post.id} className="overflow-hidden hover:shadow-lg transition-shadow">
-                                <img src={post.image || "/placeholder.svg"} alt={post.title} className="w-full h-40 sm:h-48 object-cover" />
-                                <CardContent className="p-4 sm:p-6">
-                                    <div className="text-sm text-gray-500 mb-2">{post.date}</div>
-                                    <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-3 line-clamp-2">{post.title}</h3>
-                                    <p className="text-sm text-gray-600 leading-relaxed mb-4">{post.excerpt}</p>
-                                    <Button variant="link" className="p-0 h-auto text-gray-900 hover:text-yellow-600 text-sm">
-                                        Read more →
-                                    </Button>
-                                </CardContent>
-                            </Card>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
             {/* Customer Testimonials - Responsive Layout */}
             <section className="py-8 sm:py-12 md:py-16 bg-white">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -521,19 +492,6 @@ export default function LandingPage() {
 
                     <div className="text-center mt-6 sm:mt-8">
                         <Button className="bg-black text-white hover:bg-gray-800 px-6 py-2 sm:px-8 sm:py-3">Contact us</Button>
-                    </div>
-                </div>
-            </section>
-
-            {/* Newsletter Subscription - Responsive */}
-            <section className="py-8 sm:py-12 md:py-16 bg-white">
-                <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-                    <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">Subscribe</h2>
-                    <p className="text-gray-600 mb-6 sm:mb-8 text-sm sm:text-base">Stay updated with the latest properties and real estate news</p>
-
-                    <div className="flex flex-col sm:flex-row gap-4 max-w-sm sm:max-w-md mx-auto">
-                        <Input type="email" placeholder="Enter your email" className="flex-1 text-sm sm:text-base" />
-                        <Button className="bg-black text-white hover:bg-gray-800 px-6 py-2 sm:px-8">Subscribe</Button>
                     </div>
                 </div>
             </section>

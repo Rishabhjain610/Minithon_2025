@@ -3,7 +3,8 @@ import { AuthDataContext } from "../context/AuthContext";
 import axios from "axios";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
-import stamp from "../assets/stamp.png"; // Adjust path if needed
+import Roomy from "../../public/Roomy.png"; // Use your provided image as logo
+import stamp from "../assets/stamp.png"; // Use same image for stamp
 
 const Form = () => {
   const { serverUrl } = useContext(AuthDataContext);
@@ -14,6 +15,7 @@ const Form = () => {
     dob: "",
     dateIn: "",
     dateOut: "",
+    customerId: "",
   });
   const [uploadedImage, setUploadedImage] = useState(null);
   const [sending, setSending] = useState(false);
@@ -40,8 +42,13 @@ const Form = () => {
     const input = document.getElementById("pdf-content");
     if (!input) return;
 
-    // Generate PDF
-    html2canvas(input).then(async (canvas) => {
+    input.style.background = "#fff";
+    input.style.color = "#222";
+
+    html2canvas(input, {
+      backgroundColor: "#fff",
+      useCORS: true,
+    }).then(async (canvas) => {
       const imgData = canvas.toDataURL("image/png");
       const pdf = new jsPDF();
       const pdfWidth = 210;
@@ -49,7 +56,6 @@ const Form = () => {
       pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
       pdf.save("DormitoryBookingSlip.pdf");
 
-      // Call Twilio API
       setSending(true);
       try {
         await axios.post(`${serverUrl}/api/twilio/send`);
@@ -62,108 +68,122 @@ const Form = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center py-10">
-      <h1 className="text-3xl font-bold text-gray-800 mb-6">Dormitory Booking</h1>
+    <div className="min-h-screen bg-white flex flex-col items-center py-10 px-2">
       <form
-        className="bg-white shadow-lg rounded-lg p-6 w-11/12 md:w-2/3 lg:w-1/2 grid grid-cols-1 md:grid-cols-2 gap-4"
+        className="bg-white shadow-xl rounded-2xl p-8 w-full max-w-2xl flex flex-col gap-8"
         onSubmit={handleSubmit}
       >
-        <div>
-          <label className="block text-sm font-medium text-gray-700">First Name</label>
-          <input
-            type="text"
-            name="firstName"
-            value={formData.firstName}
-            onChange={handleInputChange}
-            required
-            className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
-          />
+        {/* Logo at top center */}
+        <div className="flex justify-center mb-4">
+          <img src={Roomy} alt="Logo" className="w-32 h-32 object-contain" />
         </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Last Name</label>
-          <input
-            type="text"
-            name="lastName"
-            value={formData.lastName}
-            onChange={handleInputChange}
-            required
-            className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Date of Birth</label>
-          <input
-            type="date"
-            name="dob"
-            value={formData.dob}
-            onChange={handleInputChange}
-            required
-            className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Date In</label>
-          <input
-            type="date"
-            name="dateIn"
-            value={formData.dateIn}
-            onChange={handleInputChange}
-            required
-            className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Date Out</label>
-          <input
-            type="date"
-            name="dateOut"
-            value={formData.dateOut}
-            onChange={handleInputChange}
-            required
-            className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Upload ID Photo</label>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleImageUpload}
-            className="w-full p-3 border rounded-lg"
-          />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="flex flex-col gap-2">
+            <label className="font-semibold text-gray-700">First Name</label>
+            <input
+              type="text"
+              name="firstName"
+              value={formData.firstName}
+              onChange={handleInputChange}
+              required
+              className="p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-400"
+              placeholder="Enter your first name"
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <label className="font-semibold text-gray-700">Last Name</label>
+            <input
+              type="text"
+              name="lastName"
+              value={formData.lastName}
+              onChange={handleInputChange}
+              required
+              className="p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-400"
+              placeholder="Enter your last name"
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <label className="font-semibold text-gray-700">Date of Birth</label>
+            <input
+              type="date"
+              name="dob"
+              value={formData.dob}
+              onChange={handleInputChange}
+              required
+              className="p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-400"
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <label className="font-semibold text-gray-700">Date In</label>
+            <input
+              type="date"
+              name="dateIn"
+              value={formData.dateIn}
+              onChange={handleInputChange}
+              required
+              className="p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-400"
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <label className="font-semibold text-gray-700">Date Out</label>
+            <input
+              type="date"
+              name="dateOut"
+              value={formData.dateOut}
+              onChange={handleInputChange}
+              required
+              className="p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-400"
+            />
+          </div>
+
+          <div className="flex flex-col gap-2 md:col-span-2">
+            <label className="font-semibold text-gray-700">
+              Upload ID Photo
+            </label>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageUpload}
+              className="p-3 border border-gray-300 rounded-xl"
+            />
+          </div>
         </div>
         {/* Fixed fields */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Amount</label>
-          <input
-            type="text"
-            value="6000"
-            disabled
-            className="w-full p-3 border rounded-lg bg-gray-100"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Location</label>
-          <input
-            type="text"
-            value="Mumbai"
-            disabled
-            className="w-full p-3 border rounded-lg bg-gray-100"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Dormitory Name</label>
-          <input
-            type="text"
-            value="Shiv Sagar Dormitory"
-            disabled
-            className="w-full p-3 border rounded-lg bg-gray-100"
-          />
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="flex flex-col gap-2">
+            <label className="font-semibold text-gray-700">Amount</label>
+            <input
+              type="text"
+              value="6000"
+              disabled
+              className="p-3 border border-gray-300 rounded-xl bg-gray-100"
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <label className="font-semibold text-gray-700">Location</label>
+            <input
+              type="text"
+              value="Mumbai"
+              disabled
+              className="p-3 border border-gray-300 rounded-xl bg-gray-100"
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <label className="font-semibold text-gray-700">
+              Dormitory Name
+            </label>
+            <input
+              type="text"
+              value="Shiv Sagar Dormitory"
+              disabled
+              className="p-3 border border-gray-300 rounded-xl bg-gray-100"
+            />
+          </div>
         </div>
         <button
           type="submit"
           disabled={sending}
-          className="col-span-1 md:col-span-2 mt-4 bg-blue-500 text-white py-2 px-6 rounded-lg shadow-md hover:bg-blue-600"
+          className="mt-4 bg-[#FDC800] text-white py-3 px-6 rounded-xl shadow-lg  transition"
         >
           {sending ? "Processing..." : "Generate PDF & Confirm Booking"}
         </button>
@@ -172,60 +192,204 @@ const Form = () => {
       {/* Hidden PDF Content */}
       <div
         id="pdf-content"
-        style={{ position: "absolute", left: "-9999px", top: 0 }}
-        className="bg-white shadow-lg rounded-lg p-6 w-full md:w-2/3 lg:w-1/2 border border-gray-300 flex flex-col items-center"
+        style={{
+          position: "absolute",
+          left: "-9999px",
+          top: 0,
+          background: "#fff",
+          color: "#222",
+          width: "100%",
+          maxWidth: "700px",
+          padding: "32px",
+          borderRadius: "16px",
+          border: "1px solid #ccc",
+        }}
       >
-        <div className="flex flex-col items-center mb-6">
-          <h2 className="text-2xl font-bold text-gray-800 text-center my-8">Dormitory Booking Slip</h2>
-          <img src={stamp} alt="Stamp" className="w-24 h-24 absolute top-4 right-4 object-cover rounded-lg" />
+        {/* Logo at top center */}
+        <div
+          style={{ width: "100%", textAlign: "center", marginBottom: "32px" }}
+        >
+          <img
+            src={Roomy}
+            alt="Logo"
+            style={{ width: "120px", height: "120px", objectFit: "contain" }}
+          />
+          <h2
+            style={{
+              fontSize: "2rem",
+              fontWeight: "bold",
+              color: "#1e40af",
+              textAlign: "center",
+              margin: "24px 0",
+            }}
+          >
+            Dormitory Booking Slip
+          </h2>
         </div>
-        <table className="w-full border-collapse border border-gray-300 text-left">
+        <table
+          style={{
+            width: "100%",
+            borderCollapse: "collapse",
+            border: "1px solid #ccc",
+            textAlign: "left",
+            marginBottom: "24px",
+          }}
+        >
           <tbody>
             <tr>
-              <th className="p-3 text-gray-800 font-semibold border-r border-gray-300">First Name:</th>
-              <td className="p-3 text-gray-600">{formData.firstName}</td>
+              <th
+                style={{
+                  padding: "12px",
+                  color: "#1e40af",
+                  fontWeight: "600",
+                  borderRight: "1px solid #ccc",
+                  width: "180px",
+                }}
+              >
+                First Name:
+              </th>
+              <td style={{ padding: "12px", color: "#444" }}>
+                {formData.firstName}
+              </td>
             </tr>
             <tr>
-              <th className="p-3 text-gray-800 font-semibold border-r border-gray-300">Last Name:</th>
-              <td className="p-3 text-gray-600">{formData.lastName}</td>
+              <th
+                style={{
+                  padding: "12px",
+                  color: "#1e40af",
+                  fontWeight: "600",
+                  borderRight: "1px solid #ccc",
+                }}
+              >
+                Last Name:
+              </th>
+              <td style={{ padding: "12px", color: "#444" }}>
+                {formData.lastName}
+              </td>
             </tr>
             <tr>
-              <th className="p-3 text-gray-800 font-semibold border-r border-gray-300">Date of Birth:</th>
-              <td className="p-3 text-gray-600">{formData.dob}</td>
+              <th
+                style={{
+                  padding: "12px",
+                  color: "#1e40af",
+                  fontWeight: "600",
+                  borderRight: "1px solid #ccc",
+                }}
+              >
+                Date of Birth:
+              </th>
+              <td style={{ padding: "12px", color: "#444" }}>{formData.dob}</td>
             </tr>
             <tr>
-              <th className="p-3 text-gray-800 font-semibold border-r border-gray-300">Date In:</th>
-              <td className="p-3 text-gray-600">{formData.dateIn}</td>
+              <th
+                style={{
+                  padding: "12px",
+                  color: "#1e40af",
+                  fontWeight: "600",
+                  borderRight: "1px solid #ccc",
+                }}
+              >
+                Date In:
+              </th>
+              <td style={{ padding: "12px", color: "#444" }}>
+                {formData.dateIn}
+              </td>
             </tr>
             <tr>
-              <th className="p-3 text-gray-800 font-semibold border-r border-gray-300">Date Out:</th>
-              <td className="p-3 text-gray-600">{formData.dateOut}</td>
+              <th
+                style={{
+                  padding: "12px",
+                  color: "#1e40af",
+                  fontWeight: "600",
+                  borderRight: "1px solid #ccc",
+                }}
+              >
+                Date Out:
+              </th>
+              <td style={{ padding: "12px", color: "#444" }}>
+                {formData.dateOut}
+              </td>
+            </tr>
+
+            <tr>
+              <th
+                style={{
+                  padding: "12px",
+                  color: "#1e40af",
+                  fontWeight: "600",
+                  borderRight: "1px solid #ccc",
+                }}
+              >
+                Amount:
+              </th>
+              <td style={{ padding: "12px", color: "#444" }}>6000</td>
             </tr>
             <tr>
-              <th className="p-3 text-gray-800 font-semibold border-r border-gray-300">Amount:</th>
-              <td className="p-3 text-gray-600">6000</td>
+              <th
+                style={{
+                  padding: "12px",
+                  color: "#1e40af",
+                  fontWeight: "600",
+                  borderRight: "1px solid #ccc",
+                }}
+              >
+                Location:
+              </th>
+              <td style={{ padding: "12px", color: "#444" }}>Mumbai</td>
             </tr>
             <tr>
-              <th className="p-3 text-gray-800 font-semibold border-r border-gray-300">Location:</th>
-              <td className="p-3 text-gray-600">Mumbai</td>
-            </tr>
-            <tr>
-              <th className="p-3 text-gray-800 font-semibold border-r border-gray-300">Dormitory Name:</th>
-              <td className="p-3 text-gray-600">Shiv Sagar Dormitory</td>
+              <th
+                style={{
+                  padding: "12px",
+                  color: "#1e40af",
+                  fontWeight: "600",
+                  borderRight: "1px solid #ccc",
+                }}
+              >
+                Dormitory Name:
+              </th>
+              <td style={{ padding: "12px", color: "#444" }}>
+                Shiv Sagar Dormitory
+              </td>
             </tr>
           </tbody>
         </table>
+        {/* ID Image from user */}
         {uploadedImage && (
-          <div className="mt-6 w-full text-center">
-            <h3 className="font-semibold text-gray-800 mb-4">Student ID:</h3>
+          <div
+            style={{ marginBottom: "32px", width: "100%", textAlign: "center" }}
+          >
+            <h3
+              style={{
+                fontWeight: "600",
+                color: "#1e40af",
+                marginBottom: "16px",
+              }}
+            >
+              Customer ID Image:
+            </h3>
             <img
               src={uploadedImage}
               alt="Uploaded"
-              className="w-full max-w-xs h-auto object-cover rounded-lg mx-auto"
+              style={{
+                width: "100%",
+                maxWidth: "240px",
+                height: "auto",
+                objectFit: "cover",
+                borderRadius: "12px",
+                margin: "0 auto",
+              }}
             />
           </div>
         )}
-        <img src={stamp} alt="Verified Stamp" className="w-24 h-24 mt-6" />
+        {/* Stamp at bottom center */}
+        <div style={{ width: "100%", textAlign: "center", marginTop: "24px" }}>
+          <img
+            src={stamp}
+            alt="Stamp"
+            style={{ width: "120px", height: "120px", objectFit: "contain" }}
+          />
+        </div>
       </div>
     </div>
   );
