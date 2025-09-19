@@ -1,11 +1,9 @@
-
 import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthDataContext } from '../context/AuthContext';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { FcGoogle } from 'react-icons/fc';
-
 import { signInWithPopup } from "firebase/auth";
 import { auth, provider } from "../../utils/firebase.js";
 import { UserDataContext } from '../context/UserContext.jsx';

@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button"
 import Language from "./Language"
+import {Link} from 'react-router-dom'
 
 export default function Navbar() {
   return (
@@ -25,9 +26,11 @@ export default function Navbar() {
           <Language />
         </nav>
 
-        <Button variant="outline" className="border-gray-300 bg-transparent">
-          Register/Login
-        </Button>
+        <Link to="login">
+          <Button variant="outline" className="border-gray-300 bg-transparent">
+            Register/Login
+          </Button>
+        </Link>       
       </div>
     </header>
   )

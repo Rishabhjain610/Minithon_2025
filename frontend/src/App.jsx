@@ -7,7 +7,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 // import Form from './components/Form';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
-import Room from './components/Room';
+import Contact from './pages/Contact';
 const App = () => {
 
 
@@ -18,9 +18,9 @@ const App = () => {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/room" element={<Room />}></Route>
-        {/* <Route path="/form" element={<Form />} /> */}
+        <Route path="/register" element={<Signup />} />
+        <Route path="/form" element={<Form />} />
+        <Route path="/contact" element={<Contact />} />
       </Routes>
       <Footer></Footer>
     </>
