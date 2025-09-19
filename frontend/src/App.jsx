@@ -4,7 +4,7 @@ import Navbar from './components/Navbar';
 import { Button } from "./components/ui/button"
 import Footer from './components/Footer';
 import { Routes, Route, Navigate } from "react-router-dom";
-// import Form from './components/Form';
+import Form from './components/Form';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Contact from './pages/Contact';
