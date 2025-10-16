@@ -107,7 +107,7 @@ const googleSignIn = async (req, res) => {
       const newUser = await Auth.create({
         name,
         email,
-        
+
         isGoogleUser: true,
       });
       const token = generateToken(newUser);
