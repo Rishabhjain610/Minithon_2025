@@ -121,7 +121,7 @@ https://github.com/user-attachments/assets/595375b6-c57e-4ea3-95ea-7c2c826057c5
 
 ## 🧠 Hackathon Context
 
-This project was built as part of **Minithon 3.0 (Hackathon Problem Statement 4)** under the theme **"Dormitory Management"**.
+This project was built as part of **Minithon 3.0 (Hackathon Problem Statement)** under the theme **"Dormitory Management"**.
 The goal was to design and develop a scalable, real-world platform that improves **efficiency, accessibility, and resident experience**.
 
 ---
