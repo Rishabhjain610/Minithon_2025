@@ -1,3 +1,6 @@
+
+## 🎥 Demo Video
+https://github.com/user-attachments/assets/595375b6-c57e-4ea3-95ea-7c2c826057c5
 # 🏠 Dormitory Management System
 
 ### 🚀 Project built for **Minithon 3.0 Hackathon (Problem Statement 4)**  
@@ -114,8 +117,6 @@ TWILIO_AUTH_TOKEN=your_twilio_token
 
 ---
 
-## 🎥 Demo Video
-https://github.com/user-attachments/assets/595375b6-c57e-4ea3-95ea-7c2c826057c5
 
 ---
 
